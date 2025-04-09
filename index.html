@@ -1,7 +1,1535 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aymen Djoudi | Game Developer</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --bg-secondary: #1e1e1e;
+      --accent-color: #00c853;
+      --text-color: #ffffff;
+      --text-secondary: #b3b3b3;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      padding: 20px 0;
+      position: fixed;
+      width: 100%;
+      background-color: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    
+    .header-scrolled {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-color);
+      text-decoration: none;
+    }
+    
+    .logo span {
+      color: var(--accent-color);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 30px;
+    }
+    
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+    
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    
+    /* Hero Section */
+    #hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.9)), url("/api/placeholder/1600/900") no-repeat center center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      width: 100%;
+      z-index: 1;
+    }
+    
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+    
+    .hero-text h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero-text p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+    
+    .hero-image {
+      text-align: center;
+    }
+    
+    .profile-pic {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: #121212;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background-color: #00a844;
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+    }
+    
+    .btn-secondary:hover {
+      background-color: rgba(0, 200, 83, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    /* Games Portfolio */
+    #games {
+      padding: 100px 0;
+      background-color: var(--bg-secondary);
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .section-title p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .game-card {
+      background-color: var(--bg-color);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .game-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .game-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .game-card:hover .game-image img {
+      transform: scale(1.1);
+    }
+    
+    .game-info {
+      padding: 20px;
+    }
+    
+    .game-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    
+    .game-info p {
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+    
+    .game-links {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .game-links a {
+      padding: 8px 15px;
+      font-size: 0.8rem;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    /* About Section */
+    #about {
+      padding: 100px 0;
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    
+    .about-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .about-text p {
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+    }
+    
+    .about-image img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .skills {
+      margin-top: 30px;
+    }
+    
+    .skills h3 {
+      margin-bottom: 15px;
+    }
+    
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .skill-tag {
+      background-color: rgba(0, 200, 83, 0.1);
+      color: var(--accent-color);
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    /* Timeline */
+    .timeline {
+      margin-top: 50px;
+      position: relative;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background-color: var(--accent-color);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .timeline-item {
+      margin-bottom: 50px;
+      position: relative;
+      display: flex;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+    
+    .timeline-content {
+      width: 45%;
+      padding: 20px;
+      background-color: var(--bg-secondary);
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+    }
+    
+    /* Blog Section */
+    #blog {
+      padding: 100px 0;
+      background-color: var(--bg-secondary);
+    }
+    
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .blog-card {
+      background-color: var(--bg-color);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease;
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .blog-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .blog-card:hover .blog-image img {
+      transform: scale(1.1);
+    }
+    
+    .blog-info {
+      padding: 20px;
+    }
+    
+    .blog-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    
+    .blog-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .blog-info p {
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+    
+    .read-more {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.3s ease;
+    }
+    
+    .read-more:hover {
+      gap: 10px;
+    }
+    
+    /* Contact Section */
+    #contact {
+      padding: 100px 0;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    
+    .contact-info h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .contact-info p {
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+    
+    .contact-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .contact-links a {
+      width: 40px;
+      height: 40px;
+      background-color: var(--bg-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-links a:hover {
+      background-color: var(--accent-color);
+      color: #121212;
+      transform: translateY(-5px);
+    }
+    
+    .contact-form {
+      background-color: var(--bg-secondary);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      background-color: var(--bg-color);
+      border: 1px solid #2d2d2d;
+      border-radius: 8px;
+      color: var(--text-color);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+      border-color: var(--accent-color);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--bg-secondary);
+      padding: 50px 0 20px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-col h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 40px;
+      height: 2px;
+      background-color: var(--accent-color);
+    }
+    
+    .footer-col ul {
+      list-style: none;
+    }
+    
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-col ul li a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-col ul li a:hover {
+      color: var(--accent-color);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #2d2d2d;
+    }
+    
+    .footer-bottom p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+      text-decoration: none;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    
+    .footer-logo span {
+      color: var(--accent-color);
+    }
+    
+    /* Success Message */
+    .success-message {
+      display: none;
+      background-color: rgba(0, 200, 83, 0.1);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    /* Game Preview Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 200;
+      overflow: auto;
+      padding: 50px 0;
+    }
+    
+    .modal-content {
+      background-color: var(--bg-color);
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: color 0.3s ease;
+      z-index: 10;
+    }
+    
+    .modal-close:hover {
+      color: var(--accent-color);
+    }
+    
+    .game-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .game-preview-images {
+      height: 500px;
+      overflow: hidden;
+    }
+    
+    .game-preview-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .game-preview-info {
+      padding: 30px;
+      overflow-y: auto;
+      max-height: 500px;
+    }
+    
+    .game-preview-info h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    
+    .game-preview-info p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    
+    .game-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .game-detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .game-detail-item span:first-child {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .game-detail-item span:last-child {
+      font-weight: 600;
+    }
+    
+    .screenshots {
+      margin-top: 30px;
+    }
+    
+    .screenshots h3 {
+      margin-bottom: 15px;
+    }
+    
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    
+    .screenshot {
+      height: 80px;
+      overflow: hidden;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .screenshot:hover img {
+      transform: scale(1.1);
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-grid, .about-grid, .contact-grid, .game-preview {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-text {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      
+      .cta-buttons {
+        justify-content: center;
+      }
+      
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .timeline-item {
+        flex-direction: column-reverse !important;
+      }
+      
+      .timeline-content {
+        width: 100%;
+        margin-left: 50px;
+      }
+      
+      .timeline-dot {
+        left: 30px;
+      }
+      
+      .game-preview-images {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--bg-color);
+        padding: 20px 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 0.4s ease;
+      }
+      
+      .nav-links.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      
+      .nav-links li {
+        margin: 15px 0;
+        text-align: center;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Game Image Slider */
+    .game-slider {
+      position: relative;
+      height: 100%;
+    }
+    
+    .slider-images {
+      height: 100%;
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .slider-images img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .slider-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .slider-dot.active {
+      background-color: var(--accent-color);
+    }
+    
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--bg-secondary);
+      border-radius: 50%;
+      border-top-color: var(--accent-color);
+      animation: spin 1s infinite linear;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">DZ<span>Developer's</span></a>
+        <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Devlog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text fade-in">
+          <h1>Creating Worlds, <br>One Game at a Time</h1>
+          <p>Indie Game Developer & Creator.<br> intrested in Boss-Rushes and Metroidvania games.</p>
+          <div class="cta-buttons">
+            <a href="#games" class="btn btn-primary">See My Games</a>
+            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+          </div>
+        </div>
+        <div class="hero-image fade-in">
+          <img src="/api/placeholder/600/600" alt="Alex Morgan Profile" class="profile-pic">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Portfolio -->
+  <section id="games">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Featured Games</h2>
+        <p>Check out my latest projects and old learning games</p>
+      </div>
+      <div class="games-grid">
+        <!-- Game 1 -->
+        <div class="game-card fade-in">
+          <div class="game-image">
+            <img src="/api/placeholder/600/400" alt="Crystal Caverns">
+          </div>
+          <div class="game-info">
+            <h3>Void Climber</h3>
+            <p>An intense boss rush journey through a shadowy, void-filled world, where every victory grants new powers to overcome increasingly challenging foes.</p>
+            <div class="game-links">
+              <a href="#" class="btn btn-primary game-preview-btn" data-game="crystal-caverns">Play Now</a>
+              <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Game 2 -->
+        <div class="game-card fade-in">
+          <div class="game-image">
+            <img src="/api/placeholder/600/400" alt="Neon Drift">
+          </div>
+          <div class="game-info">
+            <h3>Neon Drift</h3>
+            <p>A high-octane racing game set in a cyberpunk world with physics-defying tracks and vehicles.</p>
+            <div class="game-links">
+              <a href="#" class="btn btn-primary game-preview-btn" data-game="neon-drift">Play Now</a>
+              <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Game 3 -->
+        <div class="game-card fade-in">
+          <div class="game-image">
+            <img src="/api/placeholder/600/400" alt="Forgotten Realms">
+          </div>
+          <div class="game-info">
+            <h3>Forgotten Realms</h3>
+            <p>An immersive RPG where your choices shape a vast fantasy world filled with deep lore.</p>
+            <div class="game-links">
+              <a href="#" class="btn btn-primary game-preview-btn" data-game="forgotten-realms">Play Now</a>
+              <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Game 4 -->
+        <div class="game-card fade-in">
+          <div class="game-image">
+            <img src="/api/placeholder/600/400" alt="Space Odyssey">
+          </div>
+          <div class="game-info">
+            <h3>Space Odyssey</h3>
+            <p>Explore distant galaxies in this open-world space exploration game with procedural planets.</p>
+            <div class="game-links">
+              <a href="#" class="btn btn-primary game-preview-btn" data-game="space-odyssey">Play Now</a>
+              <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <h2>About Me</h2>
+          <p>"I'm Aymen, an indie game developer with a passion for creating unique, skill-based action games. My journey into game development began with a love for gaming, and as I learned the fundamentals of Unity and C# and Game Design, I discovered a deep drive to bring my own worlds to life.</p>
+          <p>Currently, I'm focused on Void Climber, my dream project a boss rush-style game that blends innovative combat mechanics and immersive storytelling.</p>
+          
+          <div class="skills">
+            <h3>Core Skills</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Unity</span>
+              <span class="skill-tag">C#</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">2D Design</span>
+              <span class="skill-tag">Game Design</span>
+              <span class="skill-tag">UI/UX</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-image fade-in">
+          <img src="/api/placeholder/600/800" alt="Alex Morgan Working">
+        </div>
+      </div>
+      
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="section-title fade-in">
+          <h2>My Journey</h2>
+          <p>The road to becoming a game developer</p>
+        </div>
+ 
+        <!-- Timeline Item 1 -->
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>2023</h3>
+            <h4>My First Game</h4>
+            <p>Released my first game a Ping Pong clone which helped me learn the Unity engine and C#, and sparked my love for game development.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Timeline Item 2 -->
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>2024</h3>
+            <h4>Starting University.</h4>
+            <p>Started university, pursuing a degree in computer science.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Timeline Item 3 -->
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>2025</h3>
+            <h4>Studio creation</h4>
+            <p>Founded my own small indie studio to pursue my passion for game development.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Timeline Item 4 -->
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>2025</h3>
+            <h4>Major Release</h4>
+            <p>Working on Void Climber, my dream game a boss rush-style game.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Developer Blog</h2>
+        <p>Go behind the scenes of my game development process<br>(I don't have anything now i am going to update it)</p>
+      </div>
+      <div class="blog-grid">
+        <!-- Blog Post 1 -->
+<!--        <div class="blog-card fade-in">
+          <div class="blog-image">
+            <img src="/api/placeholder/600/400" alt="Creating Crystal Caverns">
+          </div>
+          <div class="blog-info">
+            <div class="blog-meta">
+              <span><i class="far fa-calendar"></i> March 15, 2023</span>
+              <span><i class="far fa-folder"></i> Design</span>
+            </div>
+            <h3>Creating the Light Mechanics in Crystal Caverns</h3>
+            <p>Exploring the technical challenges of implementing realistic light refraction in a 3D environment with Unity.</p>
+            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        
+        <!-- Blog Post 2 -->
+<!--        <div class="blog-card fade-in">
+          <div class="blog-image">
+            <img src="/api/placeholder/600/400" alt="Character Design">
+          </div>
+          <div class="blog-info">
+            <div class="blog-meta">
+              <span><i class="far fa-calendar"></i> February 2, 2023</span>
+              <span><i class="far fa-folder"></i> Art</span>
+            </div>
+            <h3>Character Design Process for Forgotten Realms</h3>
+            <p>A deep dive into my process for creating memorable and diverse characters for my latest RPG.</p>
+            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        
+        <!-- Blog Post 3 -->
+        <div class="blog-card fade-in">
+          <div class="blog-image">
+            <img src="/api/placeholder/600/400" alt="Indie Dev Journey">
+          </div>
+          <div class="blog-info">
+            <div class="blog-meta">
+              <span><i class="far fa-calendar"></i> January 10, 2023</span>
+              <span><i class="far fa-folder"></i> Career</span>
+            </div>
+            <h3>Test</h3>
+            <p>Descrption Test.</p>
+            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <h2>Get In Touch</h2>
+          <p>Have a project in mind or just want to chat about game development? I'm always open to new opportunities and collaborations.</p>
+          <p>Whether you're looking for a game developer to join your team, need consulting on your game project, or just want to say hello, feel free to reach out!</p>
+          
+          <div class="contact-links">
+            <a href="https://x.com/DZDevelopers"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/AymenD"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/DZDevelopers"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/AymenD/"><i class="fab fa-discord"></i></a>
+            <a href="https://www.youtube.com/@DZDevelopers"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="contact-form fade-in">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+          <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i> Your message has been sent successfully! I'll get back to you soon.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ !>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="footer-logo">DZ<span>Developer's</span></a>
+          <p>Creating immersive gaming experiences that transport players to new worlds while challenging their skills and imagination.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#games">Games</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#blog">Dev Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Latest Games</h3>
+          <ul>
+            <li><a href="#">Crystal Caverns</a></li>
+            <li><a href="#">Neon Drift</a></li>
+            <li><a href="#">Forgotten Realms</a></li>
+            <li><a href="#">Space Odyssey</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Find My Games</h3>
+          <ul>
+            <li><a href="#">Steam(doesn't work Currently)</a></li>
+            <li><a href="#">Epic Games Store(doesn't work Currently)</a></li>
+            <li><a href="#">Google Play(doesn't work Currently)</a></li>
+            <li><a href="#">App Store(doesn't work Currently)</a></li>
+            <li><a href="https://aymend.itch.io/">itch.io</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Aymen Djoudi | Indie Game Developer. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Game Preview Modal -->
+  <div class="modal" id="gameModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose"><i class="fas fa-times"></i></span>
+      <div class="game-preview">
+        <div class="game-preview-images">
+          <div class="game-slider">
+            <div class="slider-images" id="sliderImages">
+              <!-- Images will be loaded here dynamically -->
+            </div>
+            <div class="slider-controls" id="sliderControls">
+              <!-- Dots will be added here dynamically -->
+            </div>
+          </div>
+        </div>
+        <div class="game-preview-info" id="gamePreviewInfo">
+          <!-- Game info will be loaded here dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Game data
+    const games = {
+      'crystal-caverns': {
+        title: 'Void Climber',
+        description: 'Venture deep into the abyss in this boss rush-style dungeon crawler. Overcome powerful foes, unlock new abilities, and descend further into the Voids depths, where light and darkness rule.',
+        longDescription: 'Void Climber is a top-down 2D dungeon game where players face intense, skill-based boss battles and unlock new abilities with each victory. Each boss you defeat grants you a new power—dash, bow, sword, or parry—allowing you to tackle increasingly complex challenges. The game’s world, filled with both eternal flame and eternal darkness, offers a unique art style where players and enemies resemble silhouettes, adding to the haunting atmosphere. As you dive deeper into the Void, the stakes grow higher with each boss, pushing your skills to their limits. With over 25 bosses planned, Void Climber delivers an intense experience that blends tactical combat, ability progression, and storytelling, all set in a mysterious, ever-shifting world.',
+        genre: 'Boss Rush Action RPG',
+        platform: 'PC',
+        releaseDate: 'NDY',
+        engine: 'Unity',
+        images: [
+          'C:\Users\Home\Desktop\Void Climber.png',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500' 
+        ],
+        screenshots: [
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200'
+        ]
+      },
+      'neon-drift': {
+        title: 'Neon Drift',
+        description: 'A high-octane racing game set in a cyberpunk world with physics-defying tracks and vehicles.',
+        longDescription: 'Neon Drift throws players into a futuristic cyberpunk world where traditional racing rules no longer apply. Race on impossible tracks that twist, turn, and loop through neon-lit cityscapes, abandoned industrial zones, and virtual reality landscapes.\n\nThe game features a unique "drift boost" mechanic that rewards skillful drifting with bursts of speed, 12 customizable vehicles each with unique handling characteristics, a dynamic soundtrack that intensifies with your speed, and both single-player championship mode and multiplayer competitions.',
+        genre: 'Racing',
+        platform: 'PC, PS5, Xbox Series X',
+        releaseDate: 'November 2022',
+        engine: 'Unreal Engine 5',
+        images: [
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500'
+        ],
+        screenshots: [
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200'
+        ]
+      },
+      'forgotten-realms': {
+        title: 'Forgotten Realms',
+        description: 'An immersive RPG where your choices shape a vast fantasy world filled with deep lore.',
+        longDescription: 'Forgotten Realms is an epic open-world RPG where players take on the role of a "Memorywarden" - individuals with the rare ability to access and change the collective memories of civilization. As ancient threats emerge and factions vie for control, your decisions will reshape not just the present but how people remember the past.\n\nThe game features a rich, responsive world with multiple biomes and civilizations, a deep choice-driven narrative with over 40 hours of main story content, a unique "memory magic" system that allows players to influence NPC perceptions and beliefs, and hundreds of side quests with meaningful consequences.',
+        genre: 'Open-World RPG',
+        platform: 'PC, PS5, Xbox Series X',
+        releaseDate: 'June 2023',
+        engine: 'Custom Engine',
+        images: [
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500'
+        ],
+        screenshots: [
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200'
+        ]
+      },
+      'space-odyssey': {
+        title: 'Space Odyssey',
+        description: 'Explore distant galaxies in this open-world space exploration game with procedural planets.',
+        longDescription: 'Space Odyssey is a vast space exploration game where every star system, planet, and alien species is procedurally generated, creating a truly infinite universe to discover. As a lone explorer with a customizable ship, you\'ll chart unknown territories, establish outposts, and uncover the mysteries of an ancient spacefaring civilization.\n\nThe game features seamless planet-to-space transitions with no loading screens, a unique resource gathering and crafting system to upgrade your ship and equipment, alien ecology and civilizations with their own behaviors and technologies, and a flexible mission system that allows players to choose between being an explorer, trader, scientist, or any combination.',
+        genre: 'Space Exploration',
+        platform: 'PC, Xbox Series X',
+        releaseDate: 'Q4 2023 (Early Access)',
+        engine: 'Unreal Engine 5',
+        images: [
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500',
+          '/api/placeholder/800/500'
+        ],
+        screenshots: [
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200',
+          '/api/placeholder/300/200'
+        ]
+      }
+    };
+
+    // DOM Elements
+    const preloader = document.querySelector('.preloader');
+    const header = document.querySelector('header');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    const gameModal = document.getElementById('gameModal');
+    const modalClose = document.getElementById('modalClose');
+    const gamePreviewBtns = document.querySelectorAll('.game-preview-btn');
+    const sliderImages = document.getElementById('sliderImages');
+    const sliderControls = document.getElementById('sliderControls');
+    const gamePreviewInfo = document.getElementById('gamePreviewInfo');
+
+    // Preloader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 500);
+      }, 500);
+    });
+
+    // Mobile Menu Toggle
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Sticky Header
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+
+    // Smooth Scrolling for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        navLinks.classList.remove('active');
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Fade in elements on scroll
+    const fadeInElements = () => {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+          element.classList.add('active');
+        }
+      });
+    };
+
+    // Initial check for elements in view
+    fadeInElements();
+
+    // Check for elements in view on scroll
+    window.addEventListener('scroll', fadeInElements);
+
+    // Contact Form Submission
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Simulate form submission
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Here you would normally send this data to a server
+      console.log({ name, email, subject, message });
+      
+      // Clear form
+      contactForm.reset();
+      
+      // Show success message
+      successMessage.style.display = 'block';
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 5000);
+    });
+
+    // Game Preview Modal
+    gamePreviewBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const gameId = btn.getAttribute('data-game');
+        openGameModal(gameId);
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      gameModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === gameModal) {
+        gameModal.style.display = 'none';
+      }
+    });
+
+    // Open Game Modal with game data
+    function openGameModal(gameId) {
+      const game = games[gameId];
+      
+      if (!game) return;
+      
+      // Clear previous content
+      sliderImages.innerHTML = '';
+      sliderControls.innerHTML = '';
+      gamePreviewInfo.innerHTML = '';
+      
+      // Add game images to slider
+      game.images.forEach((img, index) => {
+        const imgElement = document.createElement('img');
+        imgElement.src = img;
+        imgElement.alt = `${game.title} Screenshot ${index + 1}`;
+        sliderImages.appendChild(imgElement);
+        
+        const dot = document.createElement('div');
+        dot.className = index === 0 ? 'slider-dot active' : 'slider-dot';
+        dot.addEventListener('click', () => {
+          changeSlide(index);
+          updateDots(index);
+        });
+        sliderControls.appendChild(dot);
+      });
+      
+      // Create game info content
+      gamePreviewInfo.innerHTML = `
+        <h2>${game.title}</h2>
+        <p>${game.longDescription}</p>
+        
+        <div class="game-details">
+          <div class="game-detail-item">
+            <span>Genre</span>
+            <span>${game.genre}</span>
+          </div>
+          <div class="game-detail-item">
+            <span>Platform</span>
+            <span>${game.platform}</span>
+          </div>
+          <div class="game-detail-item">
+            <span>Release Date</span>
+            <span>${game.releaseDate}</span>
+          </div>
+          <div class="game-detail-item">
+            <span>Engine</span>
+            <span>${game.engine}</span>
+          </div>
+        </div>
+        
+        <a href="#" class="btn btn-primary">Play Now</a>
+        
+        <div class="screenshots">
+          <h3>Screenshots</h3>
+          <div class="screenshots-grid">
+            ${game.screenshots.map(screenshot => `
+              <div class="screenshot">
+                <img src="${screenshot}" alt="${game.title} Screenshot">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      // Show modal
+      gameModal.style.display = 'block';
+    }
+
+    // Image slider functionality
+    function changeSlide(index) {
+      const slideWidth = sliderImages.querySelector('img').offsetWidth;
+      sliderImages.style.transform = `translateX(-${index * slideWidth}px)`;
+    }
+
+    function updateDots(activeIndex) {
+      const dots = sliderControls.querySelectorAll('.slider-dot');
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
